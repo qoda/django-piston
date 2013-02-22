@@ -79,7 +79,7 @@ class Resource(object):
         `Resource` subclass.
         """
         resp = rc.BAD_REQUEST
-        resp.write(' '+str(e.form.errors))
+        resp.write(' ' + unicode(e.form.errors))
         return resp
 
     @property
@@ -188,7 +188,7 @@ class Resource(object):
         # If we're looking at a response object which contains non-string
         # content, then assume we should use the emitter to format that 
         # content
-        if isinstance(result, HttpResponse) and not result._is_string:
+        if isinstance(result, HttpResponse) and not isinstance(result, str):
             status_code = result.status_code
             # Note: We can't use result.content here because that method attempts
             # to convert the content into a string which we don't want. 
@@ -376,7 +376,6 @@ class Resource(object):
                 isinstance(result, list) or isinstance(result, QuerySet)):
             fields = handler.list_fields
 
->>>>>>> other
         srl = emitter(result, typemapper, handler, fields, anonymous)
 
         try:
