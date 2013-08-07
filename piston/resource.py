@@ -169,6 +169,7 @@ class Resource(object):
         
         hm = HandlerMethod(meth)
         sig = hm.signature
+        msg = ""
 
         try:
             result = meth(request, *args, **kwargs)
@@ -197,8 +198,6 @@ class Resource(object):
             # to convert the content into a string which we don't want. 
             # when _is_string is False _container is the raw data
             result = result._container
-            if sig:
-                msg += 'Signature should be: %s' % sig
      
         srl = emitter(result, typemapper, handler, fields, anonymous)
 
