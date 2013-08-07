@@ -166,6 +166,9 @@ class Resource(object):
         # very well have `oauth_`-headers in there, and we
         # don't want to pass these along to the handler.
         request = self.cleanup_request(request)
+        
+        hm = HandlerMethod(meth)
+        sig = hm.signature
 
         try:
             result = meth(request, *args, **kwargs)
